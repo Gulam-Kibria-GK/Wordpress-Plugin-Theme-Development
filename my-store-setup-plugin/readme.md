@@ -34,12 +34,15 @@ my-store-setup-plugin/ <br>
 │ │ ├── functions.php<br>
 │ │ └── screenshot.png<br>
 │ └── theme2/<br>
-│ ├── index.php<br>
-│ ├── style.css<br>
-│ ├── script.js<br>
-│ ├── functions.php<br>
-│ └── screenshot.png<br>
-└── templates/ (where I can add more steps if needed, such as gathering additional information) <br>
-├── step1.php<br>
-├── step2.php<br>
-└── step3.php<br>
+│ │ ├── index.php<br>
+│ │ ├── style.css<br>
+│ │ ├── script.js<br>
+│ │ ├── functions.php<br>
+│ │ └── screenshot.png<br>
+│ └── ...<br>
+└── templates/ (Where I can add more steps if needed, such as gathering additional information) <br>
+│ ├── step1.php<br>
+│ ├── step2.php<br>
+│ └── step3.php<br>
+│ └── ...</br>
+└── ...<br>
