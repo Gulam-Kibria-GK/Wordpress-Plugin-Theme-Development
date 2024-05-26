@@ -1,0 +1,81 @@
+/* css/admin-styles.css */
+#setup-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#setup-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.setup-step {
+  display: none;
+}
+
+.setup-step.active {
+  display: block;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+#field-shop-name label,
+#field-shop-address label,
+#field-shop-country label,
+#field-shop-phone label,
+#field-shop-logo label,
+#field-facebook label,
+#field-twitter label,
+#field-instagram label,
+#field-theme-selection label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#field-shop-name input,
+#field-shop-address input,
+#field-shop-country select,
+#field-shop-phone input,
+#field-shop-logo input,
+#field-facebook input,
+#field-twitter input,
+#field-instagram input,
+#field-theme-selection select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#step1-actions,
+#step2-actions,
+#step3-actions {
+  text-align: right;
+}
+
+#step1-next,
+#step2-prev,
+#step2-next,
+#step3-prev,
+#step3-submit {
+  padding: 10px 20px;
+  background-color: #0073aa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#step1-next:hover,
+#step2-prev:hover,
+#step2-next:hover,
+#step3-prev:hover,
+#step3-submit:hover {
+  background-color: #005177;
+}

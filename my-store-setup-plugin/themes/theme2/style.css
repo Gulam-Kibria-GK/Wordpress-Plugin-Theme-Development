@@ -1,0 +1,65 @@
+/*
+Theme Name: Theme 2
+Theme URI: http://example.com/theme1
+Author: Your Name
+Author URI: http://example.com
+Description: A simple theme for setting up a store.
+Version: 1.0
+License: GPL2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-background, custom-header, custom-menu
+Text Domain: theme1
+*/
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  background: #444;
+  color: #fff;
+  text-align: center;
+  padding: 0.5em 0;
+}
+
+nav a {
+  color: #fff;
+  margin: 0 1em;
+  text-decoration: none;
+}
+
+main {
+  padding: 1em;
+}
+
+article {
+  background: #fff;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

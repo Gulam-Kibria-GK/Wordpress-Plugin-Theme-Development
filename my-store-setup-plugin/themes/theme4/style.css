@@ -1,0 +1,55 @@
+/* themes/theme1/style.css */
+
+/*
+Theme Name: Theme 4
+Theme URI: http://example.com/theme1
+Author: Your Name
+Author URI: http://example.com
+Description: A theme for displaying store information.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-store, responsive, custom-background
+Text Domain: theme1
+*/
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+#store-info {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#store-info h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#store-info p {
+  margin: 10px 0;
+}
+
+#store-info img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+#store-social-media ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#store-social-media ul li {
+  display: inline;
+  margin-right: 10px;
+}
