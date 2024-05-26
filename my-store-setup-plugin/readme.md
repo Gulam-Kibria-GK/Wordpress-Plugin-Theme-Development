@@ -15,29 +15,31 @@ My Store Setup Plugin is a WordPress plugin that simplifies the creation of a st
    Download or clone this repository to your WordPress `wp-content/plugins` directory.
 
    ```bash
-   git clone https://github.com/yourusername/my-store-setup-plugin.git
+   git clone https://github.com/Gulam-Kibria-GK/my-store-setup-plugin.git
    ```
 
-   my-store-setup-plugin/
-   ├── my-store-setup-plugin.php
-   ├── css/
-   │ └── admin-styles.css
-   ├── js/
-   │ └── admin-scripts.js
-   ├── themes/
-   │ ├── theme1/
-   │ │ ├── index.php
-   │ │ ├── style.css
-   │ │ ├── script.js
-   │ │ ├── functions.php
-   │ │ └── screenshot.png
-   │ └── theme2/
-   │ ├── index.php
-   │ ├── style.css
-   │ ├── script.js
-   │ ├── functions.php
-   │ └── screenshot.png
-   └── templates/
-   ├── step1.php
-   ├── step2.php
-   └── step3.php
+## Directory Structure
+
+my-store-setup-plugin/ <br>
+├── my-store-setup-plugin.php (we can add menu options as needed) <br>
+├── css/ <br>
+│ └── admin-styles.css<br>
+├── js/<br>
+│ └── admin-scripts.js<br>
+├── themes/ (we can add as many themes as needed)<br>
+│ ├── theme1/<br>
+│ │ ├── index.php<br>
+│ │ ├── style.css<br>
+│ │ ├── script.js<br>
+│ │ ├── functions.php<br>
+│ │ └── screenshot.png<br>
+│ └── theme2/<br>
+│ ├── index.php<br>
+│ ├── style.css<br>
+│ ├── script.js<br>
+│ ├── functions.php<br>
+│ └── screenshot.png<br>
+└── templates/ (where I can add more steps if needed, such as gathering additional information) <br>
+├── step1.php<br>
+├── step2.php<br>
+└── step3.php<br>
