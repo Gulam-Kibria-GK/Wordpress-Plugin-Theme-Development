@@ -42,7 +42,6 @@ function gk_customizer_register($wp_customize)
     $wp_customize->add_section('gk_header_area', array(
         'title' => __('Header Area', 'gk'),
         'description' => 'if you want to change header area',
-
     ));
 
     $wp_customize->add_setting('gk_logo', array(
@@ -55,7 +54,6 @@ function gk_customizer_register($wp_customize)
         'description' => 'if you want to change logo',
         'settings' => 'gk_logo',
         'section' => 'gk_header_area',
-
     )));
 
     // Menu Position Option

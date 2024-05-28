@@ -4,8 +4,26 @@
  * Plugin Name: My Store Setup Plugin
  * Description: A plugin to create a store with a setup wizard.
  * Version: 1.0
- * Author: Your Name
+ * Author: Gulam Kibria
  */
+
+
+
+// Deactivate other plugins upon activation
+register_activation_hook(__FILE__, 'my_store_setup_deactivate_other_plugins');
+function my_store_setup_deactivate_other_plugins()
+{
+    // Get all active plugins
+    $active_plugins = get_option('active_plugins');
+
+    // Deactivate each active plugin (except the current one)
+    foreach ($active_plugins as $plugin) {
+        if ($plugin != plugin_basename(__FILE__)) { // Exclude current plugin
+            deactivate_plugins($plugin);
+        }
+    }
+}
+
 
 // Activation hook to create tables
 register_activation_hook(__FILE__, 'my_store_setup_create_tables');
@@ -27,6 +45,7 @@ function my_store_setup_create_tables()
         twitter varchar(255) DEFAULT '' NOT NULL,
         instagram varchar(255) DEFAULT '' NOT NULL,
         theme varchar(255) NOT NULL,
+        setup_complete tinyint(1) DEFAULT 0 NOT NULL,
         PRIMARY KEY (id)
     ) $charset_collate;";
 
@@ -44,7 +63,6 @@ function my_store_setup_delete_tables()
     $table_name = $wpdb->prefix . 'my_store_shop_info';
     $sql = "DROP TABLE IF EXISTS $table_name;";
 
-
     $wpdb->query($sql);
 }
 
@@ -61,14 +79,18 @@ add_action('admin_enqueue_scripts', 'my_store_setup_enqueue_admin_assets');
 // Add menu for setup wizard
 function my_store_setup_add_admin_menu()
 {
-    add_menu_page(
-        'Store Setup',
-        'Store Setup',
-        'manage_options',
-        'my-store-setup',
-        'my_store_setup_render_admin_page'
-    );
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'my_store_shop_info';
+    $setup_complete = $wpdb->get_var("SELECT setup_complete FROM $table_name WHERE id = 1"); // Adjust the condition as necessary
+    add_menu_page('Store Setup', 'Store Setup', 'manage_options', 'my-store-setup', 'my_store_setup_render_admin_page', 'dashicons-store', 6);
+    if ($setup_complete) {
+        // Sub-menus shop editor 
+        add_submenu_page("my-store-setup", "Shop Editor", "Shop Editor", "manage_options", "shop-editor", "my_store_setup_editor_page");
+        // add_submenu_page('my-store-setup', 'Shop Content', 'Shop Content', 'manage_options', 'shop-content', 'my_store_setup_shop_content_page');
+    }
 }
+
+
 add_action('admin_menu', 'my_store_setup_add_admin_menu');
 
 // Render the setup wizard pages
@@ -96,6 +118,59 @@ function my_store_setup_render_admin_page()
         </form>
     </div>
 <?php
+}
+
+function my_store_setup_editor_page()
+{
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'my_store_shop_info';
+    $shop_info = $wpdb->get_row("SELECT * FROM $table_name WHERE id = 1"); // Adjust the condition as necessary
+
+    if (isset($_POST['update_shop'])) {
+        $shop_name = sanitize_text_field($_POST['shop_name']);
+        $address = sanitize_textarea_field($_POST['address']);
+        $country = sanitize_text_field($_POST['country']);
+        $phone = sanitize_text_field($_POST['phone']);
+        $logo_url = esc_url_raw($_POST['logo_url']);
+        $facebook = esc_url_raw($_POST['facebook']);
+        $twitter = esc_url_raw($_POST['twitter']);
+        $instagram = esc_url_raw($_POST['instagram']);
+        $theme_selection = sanitize_text_field($_POST['theme_selection']);
+
+
+        $wpdb->update(
+            $table_name,
+            array(
+                'shop_name' => $shop_name,
+                'address' => $address,
+                'country' => $country,
+                'phone' => $phone,
+                'logo_url' => $logo_url,
+                'facebook' => $facebook,
+                'twitter' => $twitter,
+                'instagram' => $instagram,
+                'theme' => $theme_selection
+            ),
+            array('id' => 1) // Adjust the condition as necessary
+        );
+
+        // Activate the selected theme
+        switch_theme($theme_selection);
+
+        echo '<div class="updated"><p>Shop information updated successfully.</p></div>';
+    }
+
+    // if ($_POST['delete_shop']) {
+    //     $wpdb->delete($table_name, array('id' => 1)); // Adjust the condition as necessary
+    //     echo '<div class="updated"><p>Shop information deleted successfully.</p></div>';
+    // }
+    include plugin_dir_path(__FILE__) . 'templates/shop-editor.php';
+}
+
+function my_store_setup_shop_content_page()
+{
+    echo "<h1>Shop Content Page</h1> ";
 }
 
 // Copy theme to WordPress directory
@@ -153,7 +228,8 @@ function my_store_setup_handle_form_submission()
             'facebook' => $facebook,
             'twitter' => $twitter,
             'instagram' => $instagram,
-            'theme' => $theme
+            'theme' => $theme,
+            'setup_complete' => 1
         ));
 
         // Copy the selected theme to the WordPress themes directory

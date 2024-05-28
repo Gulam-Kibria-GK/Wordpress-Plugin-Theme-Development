@@ -12,7 +12,17 @@
         <label for="shop_country">Country:</label>
         <select id="shop_country" name="shop_country" required>
             <option value="">Select Country</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="RU">Russia</option>
+            <option value="BD">Bangladesh</option>
             <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="NZ">New Zealand</option>
+            <option value="IN">India</option>
             <option value="CA">Canada</option>
             <!-- Add more countries as needed -->
         </select>

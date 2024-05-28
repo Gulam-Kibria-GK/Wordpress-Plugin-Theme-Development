@@ -79,3 +79,59 @@
 #step3-submit:hover {
   background-color: #005177;
 }
+
+/* shop editor */
+
+/* css/admin-styles.css */
+
+#shop-editor-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#shop-editor-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#shop-editor-table {
+  width: 100%;
+}
+
+#shop-editor-table th {
+  text-align: left;
+  padding: 10px;
+}
+
+#shop-editor-table td {
+  padding: 10px;
+}
+
+#shop-editor-form .regular-text,
+#shop-editor-form .large-text {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#shop-editor-actions {
+  text-align: right;
+  margin-top: 20px;
+}
+
+#shop-editor-actions .button {
+  padding: 10px 20px;
+  background-color: #0073aa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#shop-editor-actions .button:hover {
+  background-color: #005177;
+}

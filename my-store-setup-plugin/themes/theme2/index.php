@@ -1,35 +1,44 @@
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<?php
+/**
+ * The main template file.
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package Astra
+ * @since 1.0.0
+ */
 
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
-    <script src="<?php echo get_template_directory_uri(); ?>/script.js"></script>
-    <?php wp_head(); ?>
-</head>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
-<body <?php body_class(); ?>>
-    <header>
-        <h1><?php bloginfo('name'); ?></h1>
-        <p><?php bloginfo('description'); ?></p>
-    </header>
-    <nav>
-        <?php wp_nav_menu(array('theme_location' => 'primary')); ?>
-    </nav>
-    <main>
-        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <h2><?php the_title(); ?></h2>
-                    <?php the_content(); ?>
-                </article>
-        <?php endwhile;
-        endif; ?>
-    </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?></p>
-    </footer>
-    <?php wp_footer(); ?>
-</body>
+get_header(); ?>
+<?php if ( astra_page_layout() == 'left-sidebar' ) : ?>
 
-</html>
+	<?php get_sidebar(); ?>
+
+<?php endif ?>
+	<div id="primary" <?php astra_primary_class(); ?>>
+		<?php
+		astra_primary_content_top();
+
+		astra_content_loop();
+
+		astra_pagination();
+
+		astra_primary_content_bottom();
+		?>
+	</div><!-- #primary -->
+<?php
+if ( astra_page_layout() == 'right-sidebar' ) :
+
+	get_sidebar();
+
+endif;
+
+get_footer();
