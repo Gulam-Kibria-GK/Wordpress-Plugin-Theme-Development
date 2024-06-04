@@ -49,8 +49,33 @@ function my_store_setup_create_tables()
         PRIMARY KEY (id)
     ) $charset_collate;";
 
+
+    // Table for storing products
+    $table_name2 = $wpdb->prefix . 'my_store_products';
+    $sql2 = "CREATE TABLE $table_name2 (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        product_name varchar(255) NOT NULL,
+        product_price float NOT NULL,
+        discount_price float DEFAULT 0,
+        product_image varchar(255) DEFAULT '' NOT NULL,
+        product_category varchar(100) NOT NULL,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+
+    // Categories Table
+    $table_name3 = $wpdb->prefix . 'my_store_categories';
+
+    $sql3 = "CREATE TABLE $table_name3 (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    category_name varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+    ) $charset_collate;";
+
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
+    dbDelta($sql2);
+    dbDelta($sql3);
 }
 
 // Deactivation hook to delete tables
@@ -76,22 +101,33 @@ function my_store_setup_enqueue_admin_assets()
 }
 add_action('admin_enqueue_scripts', 'my_store_setup_enqueue_admin_assets');
 
+// for product page
+add_action('admin_enqueue_scripts', 'my_store_setup_enqueue_admin_styles');
+function my_store_setup_enqueue_admin_styles()
+{
+    wp_enqueue_style('product-styles', plugin_dir_url(__FILE__) . 'css/product-styles.css');
+}
 // Add menu for setup wizard
 function my_store_setup_add_admin_menu()
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'my_store_shop_info';
     $setup_complete = $wpdb->get_var("SELECT setup_complete FROM $table_name WHERE id = 1"); // Adjust the condition as necessary
-    add_menu_page('Store Setup', 'Store Setup', 'manage_options', 'my-store-setup', 'my_store_setup_render_admin_page', 'dashicons-store', 6);
-    if ($setup_complete) {
-        // Sub-menus shop editor 
-        add_submenu_page("my-store-setup", "Shop Editor", "Shop Editor", "manage_options", "shop-editor", "my_store_setup_editor_page");
-        // add_submenu_page('my-store-setup', 'Shop Content', 'Shop Content', 'manage_options', 'shop-content', 'my_store_setup_shop_content_page');
+
+    if (!$setup_complete) {
+        add_menu_page('Store Setup', 'Store Setup', 'manage_options', 'my-store-setup', 'my_store_setup_render_admin_page', 'dashicons-store', 6);
+    } else {
+        add_menu_page("Home", "Home", 'manage_options', 'home', 'my_store_home_page', 'dashicons-store', 6);
+
+        // Add submenus under Shop Editor
+        add_submenu_page('home', 'Shop Editor', 'Shop Editor', 'manage_options', 'shop-editor', 'my_store_setup_editor_page');
+        add_submenu_page("home", "Shop Info", "Shop Info", 'manage_options', 'shop_info', 'shop_content_shop_info_page');
+        add_submenu_page("home", "Product", "Product", 'manage_options', 'product', 'shop_content_product_page');
+        add_submenu_page("home", "Category", "Category", 'manage_options', 'category', 'shop_content_category_page');
     }
 }
-
-
 add_action('admin_menu', 'my_store_setup_add_admin_menu');
+
 
 // Render the setup wizard pages
 function my_store_setup_render_admin_page()
@@ -104,6 +140,7 @@ function my_store_setup_render_admin_page()
                 <p>Store setup completed successfully!</p>
             </div>
         <?php endif; ?>
+
         <form id="my-store-setup-form" method="post" action="<?php echo admin_url('admin-post.php'); ?>">
             <input type="hidden" name="action" value="my_store_setup">
             <div id="step1" class="setup-step active">
@@ -165,13 +202,123 @@ function my_store_setup_editor_page()
     //     $wpdb->delete($table_name, array('id' => 1)); // Adjust the condition as necessary
     //     echo '<div class="updated"><p>Shop information deleted successfully.</p></div>';
     // }
+
     include plugin_dir_path(__FILE__) . 'templates/shop-editor.php';
 }
 
-function my_store_setup_shop_content_page()
+
+
+
+
+function my_store_home_page()
 {
-    echo "<h1>Shop Content Page</h1> ";
+    echo "home page";
+    // Your code to render the Home page
 }
+
+
+function shop_content_shop_info_page()
+{
+    if (isset($_POST['save_shop_info'])) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'my_store_shop_info';
+
+        $shop_name = sanitize_text_field($_POST['shop_name']);
+        $address = sanitize_textarea_field($_POST['address']);
+        $country = sanitize_text_field($_POST['country']);
+        $phone = sanitize_text_field($_POST['phone']);
+        $logo_url = esc_url_raw($_POST['logo_url']);
+
+        $wpdb->update(
+            $table_name,
+            [
+                'shop_name' => $shop_name,
+                'address' => $address,
+                'country' => $country,
+                'phone' => $phone,
+                'logo_url' => $logo_url
+            ],
+            ['id' => 1] // Adjust as necessary
+        );
+
+        echo '<div class="notice notice-success is-dismissible"><p>Shop information updated successfully!</p></div>';
+    }
+
+    include plugin_dir_path(__FILE__) . 'templates/shop-content-shop-info.php';
+}
+
+
+function shop_content_product_page()
+{
+    if (isset($_POST['save_product'])) {
+        // Handle form submission to save product details
+        my_store_setup_handle_product_submission();
+    }
+    // Include the product template
+    include plugin_dir_path(__FILE__) . 'templates/product.php';
+}
+
+function shop_content_category_page()
+{
+    if (isset($_POST['add_category'])) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'my_store_categories';
+
+        $category_name = sanitize_text_field($_POST['category_name']);
+
+        $wpdb->insert(
+            $table_name,
+            ['category_name' => $category_name]
+        );
+
+        echo '<div class="notice notice-success is-dismissible"><p>Category added successfully!</p></div>';
+    }
+
+    include plugin_dir_path(__FILE__) . 'templates/shop-content-category.php';
+}
+
+
+
+function my_store_setup_handle_product_submission()
+{
+    if (isset($_POST['product_name'])) {
+        global $wpdb;
+
+        $product_name = sanitize_text_field($_POST['product_name']);
+        $product_price = floatval($_POST['product_price']);
+        $discount_price = floatval($_POST['discount_price']);
+        $product_category = sanitize_text_field($_POST['product_category']);
+
+        // Handle file upload
+        $product_image = '';
+        if (!empty($_FILES['product_image']['name'])) {
+            $uploaded = media_handle_upload('product_image', 0);
+            if (is_wp_error($uploaded)) {
+                echo "Error uploading file.";
+            } else {
+                $product_image = wp_get_attachment_url($uploaded);
+            }
+        }
+
+        $table_name = $wpdb->prefix . 'my_store_products';
+        $wpdb->insert($table_name, array(
+            'product_name' => $product_name,
+            'product_price' => $product_price,
+            'discount_price' => $discount_price,
+            'product_image' => $product_image,
+            'product_category' => $product_category
+        ));
+
+        // Redirect to avoid form resubmission
+        wp_redirect(admin_url('admin.php?page=product&success=1'));
+        exit;
+    }
+}
+
+
+
+register_activation_hook(__FILE__, 'my_store_setup_create_tables');
+
 
 // Copy theme to WordPress directory
 function copy_theme_to_wp_directory($theme_name)
@@ -239,7 +386,7 @@ function my_store_setup_handle_form_submission()
         switch_theme($theme);
 
         // Redirect to avoid form resubmission
-        wp_redirect(admin_url('admin.php?page=my-store-setup&success=1'));
+        wp_redirect(admin_url('admin.php?page=home&success=1'));
         exit;
     }
 }

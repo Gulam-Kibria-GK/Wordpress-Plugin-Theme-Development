@@ -135,3 +135,163 @@
 #shop-editor-actions .button:hover {
   background-color: #005177;
 }
+
+/* css/admin-styles.css */
+#shop-info-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#shop-info-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#shop-info-form .form-field {
+  margin-bottom: 20px;
+}
+
+#shop-info-form #shop-name-field label,
+#shop-info-form #shop-address-field label,
+#shop-info-form #shop-country-field label,
+#shop-info-form #shop-phone-field label,
+#shop-info-form #shop-logo-field label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#shop-info-form #shop-name-field input,
+#shop-info-form #shop-address-field textarea,
+#shop-info-form #shop-country-field input,
+#shop-info-form #shop-phone-field input,
+#shop-info-form #shop-logo-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#shop-info-actions {
+  text-align: right;
+}
+
+#save-shop-info-button {
+  padding: 10px 20px;
+  background-color: #0073aa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#save-shop-info-button:hover {
+  background-color: #005177;
+}
+
+/* css/admin-styles.css */
+#category-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#category-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#category-nav {
+  margin-bottom: 20px;
+}
+
+#category-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#category-nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+#category-nav ul li a {
+  text-decoration: none;
+  color: #0073aa;
+}
+
+#category-nav ul li a:hover {
+  text-decoration: underline;
+}
+
+#category-form .form-field {
+  margin-bottom: 20px;
+}
+
+#category-form #category-name-field label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#category-form #category-name-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#category-actions {
+  text-align: right;
+}
+
+#add-category-button {
+  padding: 10px 20px;
+  background-color: #0073aa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#add-category-button:hover {
+  background-color: #005177;
+}
+
+#category-list-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#category-list-table th,
+#category-list-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+#category-list-table th {
+  background-color: #f1f1f1;
+}
+
+#category-list-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+#category-list-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+#category-list-table a {
+  color: #0073aa;
+  text-decoration: none;
+}
+
+#category-list-table a:hover {
+  text-decoration: underline;
+}
