@@ -1,0 +1,73 @@
+# Ignore the node_modules directory for JavaScript dependencies
+node_modules/
+
+# Ignore any log files
+*.log
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore sensitive credential files
+.env
+
+# Ignore Composer dependencies
+/vendor/
+
+# Ignore IDE specific files
+.idea/
+*.iml
+
+# Ignore PHPStorm project files
+.phpstorm.meta.php
+
+# Ignore Symfony related files
+/.cache/
+/var/
+/public/bundles/
+/config/*.local.php
+
+# Ignore Laravel related files
+/vendor/
+/node_modules/
+npm-debug.log
+yarn-error.log
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+/storage/*.key
+/storage/app/public/*
+/storage/logs/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+/bootstrap/cache/*.php
+
+# Ignore PHPUnit result cache
+.phpunit.result.cache
+
+# Ignore common files and directories
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore files for deployment tools
+.deploy/
+.deployer/
+
+# Ignore system files
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore custom files and directories
+/cache/
+/uploads/
+/backup/
+
+# Ignore the database files
+*.sqlite
+*.sql
+*.bak
