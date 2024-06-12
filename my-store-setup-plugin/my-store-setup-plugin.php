@@ -51,6 +51,14 @@ function my_store_setup_create_tables()
         PRIMARY KEY (id)
     ) $charset_collate;";
 
+    // Categories Table
+    $table_name3 = $wpdb->prefix . 'my_store_categories';
+    $sql3 = "CREATE TABLE $table_name3 (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    category_name varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+    ) $charset_collate;";
+
 
     // Table for storing products
     $table_name2 = $wpdb->prefix . 'my_store_products';
@@ -60,23 +68,19 @@ function my_store_setup_create_tables()
         product_price float NOT NULL,
         discount_price float DEFAULT 0,
         product_image varchar(255) DEFAULT '' NOT NULL,
-        product_category varchar(100) NOT NULL,
-        PRIMARY KEY (id)
+        product_category mediumint(9) NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (product_category) REFERENCES {$wpdb->prefix}my_store_categories(id) ON DELETE CASCADE
+
     ) $charset_collate;";
 
 
-    // Categories Table
-    $table_name3 = $wpdb->prefix . 'my_store_categories';
-    $sql3 = "CREATE TABLE $table_name3 (
-    id mediumint(9) NOT NULL AUTO_INCREMENT,
-    category_name varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-    ) $charset_collate;";
+
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
-    dbDelta($sql2);
     dbDelta($sql3);
+    dbDelta($sql2);
 }
 
 // Deactivation hook to delete tables
@@ -180,8 +184,12 @@ function my_store_setup_editor_page()
     global $wpdb;
     $table_name = $wpdb->prefix . 'my_store_shop_info';
 
+
+
     // Fetch current shop info
     $shop_info = $wpdb->get_row("SELECT * FROM $table_name WHERE id = 1", ARRAY_A);
+
+    $previous_theme = $shop_info['theme'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_shop_settings'])) {
         // Handle cover photo upload
@@ -228,8 +236,10 @@ function my_store_setup_editor_page()
             array('id' => 1)
         );
 
-        // Activate the selected theme
-        switch_theme($theme);
+        if ($previous_theme != $theme) {
+            copy_theme_to_wp_directory($theme);
+            delete_previous_theme($previous_theme);
+        }
 
         echo '<div class="updated"><p>Shop information updated successfully.</p></div>';
     }
@@ -372,11 +382,25 @@ function my_store_setup_handle_product_submission()
     }
 }
 
+// Delete previous theme
+function delete_previous_theme($previous_theme)
+{
+    $theme_root = get_theme_root() . '/' . $previous_theme;
 
+    if (is_dir($theme_root)) {
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($theme_root, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
 
+        foreach ($files as $fileinfo) {
+            $todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
+            $todo($fileinfo->getRealPath());
+        }
 
-register_activation_hook(__FILE__, 'my_store_setup_create_tables');
-
+        rmdir($theme_root);
+    }
+}
 
 // Copy theme to WordPress directory
 function copy_theme_to_wp_directory($theme_name)
@@ -400,6 +424,8 @@ function copy_theme_to_wp_directory($theme_name)
             copy($item, $dest);
         }
     }
+
+    switch_theme($theme_name);
 }
 
 
@@ -444,8 +470,6 @@ function my_store_setup_handle_form_submission()
         // Copy the selected theme to the WordPress themes directory
         copy_theme_to_wp_directory($theme);
 
-        // Activate the copied theme
-        switch_theme($theme);
 
         // Redirect to avoid form resubmission
         wp_redirect(admin_url('admin.php?page=home&success=1'));

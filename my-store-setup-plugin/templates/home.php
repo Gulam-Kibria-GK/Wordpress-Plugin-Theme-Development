@@ -30,6 +30,7 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
             <li class="store-setup-step py-2  border-2 text-lg" id="store-setup-step-3"> <a href="<?php echo esc_url(admin_url('admin.php?page=shop_info')); ?>"> 3. Update the shop Info </a> </li>
             <li class="store-setup-step py-2  border-2 text-lg" id="store-setup-step-4"> <a href="<?php echo esc_url(admin_url('admin.php?page=category')); ?>"> 4. Add your categories </a> </li>
             <li class="store-setup-step py-2  border-2 text-lg" id="store-setup-step-5"> <a href="<?php echo esc_url(admin_url('admin.php?page=product')); ?>"> 5. Add your products </a> </li>
+            <!-- <li class="store-setup-step mt-4" id="store-setup-step-5"> Done!!! </li> -->
         </ul>
     </div>
 
@@ -41,47 +42,47 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
         <div class="store-setup-card-2-content grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
 
             <div>
-                <h2 class="text-xl font-semibold mb-2">Theme</h2>
+                <h2 class="text-xl font-semibold text-center mb-2">Theme</h2>
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
-                        <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" />
-                        <h3 class="text-center text-lg font-medium px-2 py-1 mt-2 bg-white">
+                        <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
+                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">
                             <?php echo esc_attr($shop_info->theme); ?>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg font-medium text-sm p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
                         This theme is active for this store.
                     </div>
                 </div>
             </div>
 
             <div>
-                <h2 class="text-xl font-semibold mb-2">Layouts</h2>
+                <h2 class="text-xl font-semibold text-center mb-2">Layouts</h2>
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
-                        <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Sylhet.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" />
-                        <h3 class="text-center text-lg font-medium px-2 py-1 mt-2 bg-white">
+                        <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Sylhet.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
+                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">
                             <?php echo esc_attr($shop_info->layout); ?>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg font-medium text-sm p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
                         This layout is active for this store.
                     </div>
                 </div>
             </div>
 
             <div>
-                <h2 class="text-xl font-semibold mb-2">Total Categories</h2>
+                <h2 class="text-xl font-semibold text-center mb-2">Total Categories</h2>
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
-                        <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" />
-                        <h3 class="text-center text-lg font-medium px-2 py-1 mt-2 bg-white">Total :-
+                        <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
+                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">Total :-
                             <!-- count number of categories -->
 
                             <?php echo esc_attr(count($categories)); ?>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg font-medium text-sm p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
                         Total number of categories in this store.
                     </div>
                 </div>
@@ -89,15 +90,15 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
 
 
             <div>
-                <h2 class="text-xl font-semibold mb-2">Total Products</h2>
+                <h2 class="text-xl font-semibold text-center mb-2">Total Products</h2>
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
-                        <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Rajshahi.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" />
-                        <h3 class="text-center text-lg font-medium px-2 py-1 mt-2 bg-white">Total :-
+                        <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Rajshahi.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
+                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">Total :-
                             <?php echo esc_attr(count($products)); ?>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg font-medium text-sm p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
                         Total number of products in this store.
                     </div>
                 </div>

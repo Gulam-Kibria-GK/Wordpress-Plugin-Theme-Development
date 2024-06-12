@@ -1,0 +1,42 @@
+/*
+Theme Name: Store Theme 2
+Theme URI: http://example.com/store-theme
+Author: Gulam Kibria
+Author URI: http://example.com
+Description: A theme to display store information.
+Version: 1.0.2
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: store-theme-2
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 15px;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+#store-info {
+  margin: 20px 0;
+}
+
+#store-info div {
+  margin-bottom: 10px;
+}
+
+#store-social-media ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#store-social-media ul li {
+  display: inline;
+  margin-right: 10px;
+}

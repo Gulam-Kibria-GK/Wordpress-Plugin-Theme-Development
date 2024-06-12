@@ -36,7 +36,7 @@
                     <select id="product_category" name="product_category" required class="w-full border rounded px-2 py-1">
                         <option value="">Select Category</option>
                         <?php foreach ($categories as $category) { ?>
-                            <option value="<?php echo esc_attr($category->category_name); ?>"><?php echo esc_html($category->category_name); ?></option>
+                            <option value="<?php echo esc_attr($category->id); ?>"><?php echo esc_html($category->category_name); ?></option>
                         <?php } ?>
                     </select>
                 </div>

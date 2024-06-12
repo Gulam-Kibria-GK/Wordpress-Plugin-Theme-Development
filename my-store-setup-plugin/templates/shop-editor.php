@@ -63,10 +63,10 @@
                 <h2 class="text-xl font-bold mb-4">Theme</h2>
                 <div class="grid grid-cols-4 gap-4">
                     <!-- Theme 1 -->
-                    <div class="bg-white shadow rounded p-4">
-                        <img src="theme2.jpg" alt="Theme 2" class="mb-4">
+                    <div class="bg-white shadow rounded p-4 grid grid-rows-2">
+                        <img src="<?php echo plugin_dir_url(__DIR__) . 'themes/theme1/screenshot.png'; ?>" alt="Theme 1" class="mb-4" style="width: 120px; height: 100px;">
 
-                        <div class="flex justify-between gap-4 items-center">
+                        <div class=" grid grid-cols-2 gap-4 items-center">
                             <span>Theme 1</span>
                             <div>
                                 <label>
@@ -76,9 +76,11 @@
                         </div>
                     </div>
                     <!-- Theme 2 -->
-                    <div class="bg-white shadow rounded p-4">
-                        <img src="theme2.jpg" alt="Theme 2" class="mb-4">
-                        <div class="flex justify-between gap-4 items-center">
+                    <div class="bg-white shadow rounded p-4 grid grid-rows-2">
+                        <div>
+                            <img src=" <?php echo plugin_dir_url(__DIR__) . 'themes/theme2/screenshot.png'; ?>" alt="Theme 2" class="mb-4" style="width: 120px; height: 100px;">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 items-center">
                             <span>Theme 2</span>
                             <div>
                                 <label>
@@ -87,7 +89,30 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Add more themes as needed -->
+                    <!-- theme 3 -->
+                    <div class="bg-white shadow rounded p-4 grid grid-rows-2">
+                        <img src="<?php echo plugin_dir_url(__DIR__) . 'themes/theme3/screenshot.png'; ?>" alt="Theme 2" class="mb-4" style="width: 120px; height: 100px;">
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <span>Theme 3</span>
+                            <div>
+                                <label>
+                                    <input type="radio" name="theme_selection" value="theme3" <?php checked($shop_info['theme'], 'theme3'); ?>> Activate
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- theme 4 -->
+                    <div class="bg-white shadow rounded p-4 grid grid-rows-2">
+                        <img src="<?php echo plugin_dir_url(__DIR__) . 'themes/theme4/screenshot.png'; ?>" alt="Theme 2" class="mb-4" style="width: 120px; height: 100px;">
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <span>Theme 4</span>
+                            <div>
+                                <label>
+                                    <input type="radio" name="theme_selection" value="theme4" <?php checked($shop_info['theme'], 'theme4'); ?>> Activate
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
