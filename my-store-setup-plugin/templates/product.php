@@ -72,7 +72,7 @@
                         <td class="border px-4 py-2"><?php echo esc_html($product->product_category); ?></td>
                         <td class="border px-4 py-2">
                             <a href="?page=product&action=edit&id=<?php echo esc_attr($product->id); ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                            <a href="?page=product&action=delete&id=<?php echo esc_attr($product->id); ?>" class="text-red-500 hover:text-red-700">Delete</a>
+                            <a href="?page=product&action=delete&id=<?php echo esc_attr($product->id); ?>" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
                         </td>
                     </tr>
                 <?php } ?>

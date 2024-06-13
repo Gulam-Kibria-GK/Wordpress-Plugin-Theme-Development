@@ -56,24 +56,64 @@ $categories = get_my_store_categories();
                         <?php foreach ($categories as $category) : ?>
                             <div class="mt-10">
                                 <h2 class="text-xl font-semibold mb-4"><?php echo esc_html($category->category_name); ?></h2>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                    <?php $products = get_my_store_products($category->id); ?>
-                                    <?php if (count($products)) : ?>
-                                        <?php foreach ($products as $item) : ?>
-                                            <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
-                                                <div class="ml-3">
-                                                    <p class="text-md font-semibold"><?php echo esc_html($item->product_name); ?></p>
-                                                    <p class="text-gray-600 font-semibold"> BDT
-                                                        <?php echo esc_html($item->product_price); ?>
-                                                    </p>
+                                <?php if ($store_info->layout == "Grid(1x2)") : ?>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                                        <?php $products = get_my_store_products($category->id); ?>
+                                        <?php if (count($products)) : ?>
+                                            <?php foreach ($products as $item) : ?>
+                                                <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
+                                                    <div class="ml-3">
+                                                        <p class="text-md font-semibold"><?php echo esc_html($item->product_name); ?></p>
+                                                        <p class="text-gray-600 font-semibold"> BDT
+                                                            <?php echo esc_html($item->product_price); ?>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 py-2 pr-2">
+                                                        <img src="<?php echo esc_url($item->product_image ? $item->product_image : 'https://bikri.io/assets/images/bikri_product_blank_image.png'); ?>" alt="<?php echo esc_attr($item->product_name); ?>" class="w-22 h-16 rounded-lg">
+                                                    </div>
                                                 </div>
-                                                <div class="flex-shrink-0 py-2 pr-2">
-                                                    <img src="<?php echo esc_url($item->product_image ? $item->product_image : 'https://bikri.io/assets/images/bikri_product_blank_image.png'); ?>" alt="<?php echo esc_attr($item->product_name); ?>" class="w-22 h-16 rounded-lg">
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php elseif ($store_info->layout == "List") : ?>
+                                    <div class="max-w-xs grid grid-cols-1 gap-y-4 gap-x-8">
+                                        <?php $products = get_my_store_products($category->id); ?>
+                                        <?php if (count($products)) : ?>
+                                            <?php foreach ($products as $item) : ?>
+                                                <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
+                                                    <div class="ml-3">
+                                                        <p class="text-md font-semibold"><?php echo esc_html($item->product_name); ?></p>
+                                                        <p class="text-gray-600 font-semibold"> BDT
+                                                            <?php echo esc_html($item->product_price); ?>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 py-2 pr-2">
+                                                        <img src="<?php echo esc_url($item->product_image ? $item->product_image : 'https://bikri.io/assets/images/bikri_product_blank_image.png'); ?>" alt="<?php echo esc_attr($item->product_name); ?>" class="w-22 h-16 rounded-lg">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-y-4 gap-x-8">
+                                        <?php $products = get_my_store_products($category->id); ?>
+                                        <?php if (count($products)) : ?>
+                                            <?php foreach ($products as $item) : ?>
+                                                <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
+                                                    <div class="ml-3">
+                                                        <p class="text-md font-semibold"><?php echo esc_html($item->product_name); ?></p>
+                                                        <p class="text-gray-600 font-semibold"> BDT
+                                                            <?php echo esc_html($item->product_price); ?>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 py-2 pr-2">
+                                                        <img src="<?php echo esc_url($item->product_image ? $item->product_image : 'https://bikri.io/assets/images/bikri_product_blank_image.png'); ?>" alt="<?php echo esc_attr($item->product_name); ?>" class="w-22 h-16 rounded-lg">
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
 
@@ -94,7 +134,15 @@ $categories = get_my_store_categories();
             </div>
 
             <div class="tab-content hidden" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <ul class="social-media-icons">
+
+                <div class="mt-8 max-w-4xl">
+                    <!-- description echo -->
+                    <h2 class="text-2xl">Description :</h2>
+                    <p class="text-xl mt-4 ">
+                        <?php echo esc_html($store_info->description); ?>
+                    </p>
+                </div>
+                <ul class="social-media-icons mt-16">
                     <?php if ($store_info->facebook) : ?>
                         <li class="text-2xl font-semibold mt-2">
                             <a href="<?php echo esc_url($store_info->facebook); ?>">
@@ -119,6 +167,8 @@ $categories = get_my_store_categories();
                 </ul>
             </div>
         </div>
+
+
     </div>
 </main>
 

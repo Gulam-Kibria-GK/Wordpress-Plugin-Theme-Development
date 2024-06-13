@@ -3,7 +3,7 @@
 /**
  * Plugin Name: My Store Setup Plugin
  * Description: A plugin to create a store with a setup wizard.
- * Version: 1.0
+ * Version: 1.2
  * Author: Gulam Kibria
  */
 
@@ -331,6 +331,27 @@ function shop_content_product_page()
     $table_name = $wpdb->prefix . 'my_store_categories';
 
     $categories = $wpdb->get_results("SELECT * FROM $table_name");
+
+    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
+        global $wpdb;
+        $product_id = intval($_GET['id']);
+        $table_name = $wpdb->prefix . 'my_store_products';
+
+        // Perform the delete operation
+        $wpdb->delete($table_name, array('id' => $product_id));
+
+        // Check for errors
+        if ($wpdb->last_error) {
+            wp_die('Database error: ' . $wpdb->last_error);
+        }
+
+        // Redirect back to the product list page after deletion
+        wp_redirect(admin_url('admin.php?page=product&action=list'));
+        exit;
+    }
+
+
+
     // Include the product template
     include plugin_dir_path(__FILE__) . 'templates/product.php';
 }
@@ -354,11 +375,8 @@ function shop_content_category_page()
     include plugin_dir_path(__FILE__) . 'templates/shop-content-category.php';
 }
 
-
-
 function my_store_setup_handle_product_submission()
 {
-
     if (isset($_POST['product_name'])) {
         global $wpdb;
 
@@ -376,7 +394,6 @@ function my_store_setup_handle_product_submission()
             'product_image' => $product_image,
             'product_category' => $product_category
         ));
-
         // Redirect to avoid form resubmission
         wp_redirect(admin_url('admin.php?page=product&success=1'));
     }
@@ -397,7 +414,6 @@ function delete_previous_theme($previous_theme)
             $todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
             $todo($fileinfo->getRealPath());
         }
-
         rmdir($theme_root);
     }
 }
