@@ -731,12 +731,20 @@ video {
   height: 0.5rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-24 {
   height: 6rem;
 }
 
 .h-36 {
   height: 9rem;
+}
+
+w-12 {
+  width: 3rem;
 }
 
 .w-24 {
@@ -914,6 +922,10 @@ video {
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
+}
+
+.border-red-500 {
+  border-color: #ef4444;
 }
 
 .p-0 {
@@ -1127,6 +1139,10 @@ video {
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+
+.mt-4 {
+  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {
