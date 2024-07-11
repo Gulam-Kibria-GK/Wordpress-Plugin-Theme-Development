@@ -1,9 +1,10 @@
 <!-- templates/shop-editor.php -->
 <div id="shop-editor" class=" min-h-screen max-w-4xl mx-auto  p-6 ">
     <div class="bg-white shadow-md rounded p-6 mb-6">
+        <h1 id="shop-editor-title" class="text-2xl font-bold mb-4">Shop Editor</h1>
+
         <form id="shop-settings-form" method="post" enctype="multipart/form-data">
             <input type="hidden" name="save_shop_settings" value="1">
-
             <!-- Profile Section -->
             <div id="profile-section" class="mb-6">
                 <div class="flex items-center mb-4">

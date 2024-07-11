@@ -46,11 +46,15 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
                         <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
-                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">
-                            <?php echo esc_attr($shop_info->theme); ?>
+                        <h3 class="text-center text-md font-medium px-2 py-4 mt-2 bg-white">
+                            <span style="color:#ffffff ; font-weight: bold; background-color: #000000; padding: 8px 12px; border-radius: 3px;">
+
+                                <?php echo esc_attr($shop_info->theme); ?>
+
+                            </span>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[#BFBFBF]">
                         This theme is active for this store.
                     </div>
                 </div>
@@ -61,11 +65,15 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
                         <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Sylhet.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
-                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">
-                            <?php echo esc_attr($shop_info->layout); ?>
+                        <h3 class="text-center text-md font-medium px-2 py-4 mt-2 bg-white">
+                            <span style="color:#FFFFFF ; font-weight: bold; background-color: #000000; padding: 8px 12px; border-radius: 3px;">
+
+                                <?php echo esc_attr($shop_info->layout); ?>
+
+                            </span>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[#BFBFBF]">
                         This layout is active for this store.
                     </div>
                 </div>
@@ -76,13 +84,14 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
                         <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Dhaka.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
-                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">Total :-
+                        <h3 class="text-center text-md font-medium px-2 py-4 mt-2 bg-white">Total :-
                             <!-- count number of categories -->
-
-                            <?php echo esc_attr(count($categories)); ?>
+                            <span style="color:#FFFFFF ; font-weight: bold; background-color: #000000; padding: 8px 12px; border-radius: 3px;">
+                                <?php echo esc_attr(count($categories)); ?>
+                            </span>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[#BFBFBF]">
                         Total number of categories in this store.
                     </div>
                 </div>
@@ -94,11 +103,15 @@ $products = $wpdb->get_results("SELECT * FROM $table_name2");
                 <div class=" border shadow-xl rounded-lg hover:shadow-2xl hover:scale-105 duration-300">
                     <div class="relative">
                         <!-- <img src="https://digitawebs.com/bikrifood/public/assets/images/cities/city-tile-Rajshahi.jpg" class="w-full rounded-t-lg h-40 object-cover " alt="" /> -->
-                        <h3 class="text-center text-md font-medium px-2 py-2 mt-2 bg-white">Total :-
-                            <?php echo esc_attr(count($products)); ?>
+                        <h3 class="text-center text-md font-medium px-2 py-4 mt-2 bg-white">Total :-
+                            <span style="color:#FFFFFF ; font-weight: bold; background-color: #000000; padding: 8px 12px; border-radius: 3px;">
+
+                                <?php echo esc_attr(count($products)); ?>
+
+                            </span>
                         </h3>
                     </div>
-                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[##BFBFBF]">
+                    <div class="flex h-[60px] text-black rounded-b-lg  text-xs p-3 bg-[#BFBFBF]">
                         Total number of products in this store.
                     </div>
                 </div>

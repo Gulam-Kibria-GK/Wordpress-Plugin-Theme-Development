@@ -1,23 +1,20 @@
 <?php
-function restaurant_theme_setup()
-{
-    add_theme_support('title-tag');
-    add_theme_support('post-thumbnails');
-}
-add_action('after_setup_theme', 'restaurant_theme_setup');
+// themes/theme1/functions.php
 
-function restaurant_theme_enqueue_scripts()
+function theme1_enqueue_styles()
 {
-    wp_enqueue_style('restaurant-style', get_stylesheet_uri());
-    wp_enqueue_style('tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-    wp_enqueue_script('restaurant-script', get_template_directory_uri() . '/js/main.js', array('jquery'), null, true);
+    wp_enqueue_style('theme1-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0.1', 'all');
+    wp_enqueue_script('theme1-script', get_stylesheet_directory_uri() . '/script.js', array('jquery'), null, true);
 }
-add_action('wp_enqueue_scripts', 'restaurant_theme_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'theme1_enqueue_styles');
 
 function get_my_store_info()
 {
     global $wpdb;
+
+    // Table for storing shop information
     $table_name = $wpdb->prefix . 'my_store_shop_info';
-    $store_info = $wpdb->get_row("SELECT * FROM $table_name WHERE id = 1");
+    $store_info = $wpdb->get_row("SELECT * FROM $table_name WHERE id = 1"); // Adjust the condition as necessary
+
     return $store_info;
 }

@@ -1,10 +1,14 @@
 <!-- templates/product.php -->
 <div id="product-form-wrapper" class="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-    <h1 id="product-title" class="text-2xl font-bold mb-4">Product</h1>
+    <h1 id="product-title" class="text-2xl text-center font-bold mb-4">Product</h1>
     <nav id="product-nav" class="mb-4">
         <ul class="flex">
-            <li style="margin-right: 6px"><a href="?page=product&action=add" class="text-blue-500 hover:text-blue-700">Add</a></li>
-            <li><a href="?page=product&action=list" class="text-blue-500 hover:text-blue-700">List</a></li>
+            <li style="margin-right: 8px; display: inline-block;">
+                <a href="?page=product&action=add" style="color: #ffffff; background-color: #999999; border: 2px solid #999999; font-size: 1.25rem; padding: 5px 15px; border-radius: 4px; text-decoration: none; transition: all 0.3s ease-in-out;">Add</a>
+            </li>
+            <li style="display: inline-block;">
+                <a href="?page=product&action=list" style="color: #ffffff; background-color: #999999; border: 2px solid #999999; font-size: 1.25rem; padding: 5px 15px; border-radius: 4px; text-decoration: none; transition: all 0.3s ease-in-out;">List</a>
+            </li>
         </ul>
     </nav>
 
@@ -59,7 +63,7 @@
                     <th class="border px-4 py-2">Price</th>
                     <th class="border px-4 py-2">Discount Price</th>
                     <th class="border px-4 py-2">Category</th>
-                    <th class="border px-4 py-2">Actions</th>
+                    <!-- <th class="border px-4 py-2">Actions</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -69,11 +73,15 @@
                         <td class="border px-4 py-2"><?php echo esc_html($product->product_name); ?></td>
                         <td class="border px-4 py-2"><?php echo esc_html($product->product_price); ?></td>
                         <td class="border px-4 py-2"><?php echo esc_html($product->discount_price); ?></td>
-                        <td class="border px-4 py-2"><?php echo esc_html($product->product_category); ?></td>
-                        <td class="border px-4 py-2">
+                        <?php foreach ($categories as $category) {
+                            if ($category->id == $product->product_category) { ?>
+                                <td class="border px-4 py-2"><?php echo esc_html($category->category_name); ?></td>
+                        <?php     }
+                        } ?>
+                        <!-- <td class="border px-4 py-2">
                             <a href="?page=product&action=edit&id=<?php echo esc_attr($product->id); ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
                             <a href="?page=product&action=delete&id=<?php echo esc_attr($product->id); ?>" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
-                        </td>
+                        </td> -->
                     </tr>
                 <?php } ?>
             </tbody>
@@ -82,3 +90,26 @@
     }
     ?>
 </div>
+
+<script>
+    // JavaScript code to detect active link and change background color
+    const currentPage = window.location.href;
+    const addLink = document.querySelector('a[href="?page=product&action=add"]');
+    const listLink = document.querySelector('a[href="?page=product&action=list"]');
+
+
+    addLink.style.backgroundColor = '#2563eb';
+    addLink.style.borderColor = '#2563eb';
+
+    if (currentPage.includes("action=add")) {
+        addLink.style.backgroundColor = "#3b82f6";
+        addLink.style.borderColor = "#3b82f6";
+        listLink.style.backgroundColor = "#999999";
+        listLink.style.borderColor = "#999999";
+    } else if (currentPage.includes("action=list")) {
+        listLink.style.backgroundColor = "#3b82f6";
+        listLink.style.borderColor = "#3b82f6";
+        addLink.style.backgroundColor = '#999999';
+        addLink.style.borderColor = '#999999';
+    }
+</script>

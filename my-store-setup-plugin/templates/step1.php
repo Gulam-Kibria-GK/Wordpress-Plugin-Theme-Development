@@ -29,7 +29,7 @@
     </div>
     <div class="form-field mb-4" id="field-shop-phone">
         <label for="shop_phone" class="block text-gray-700 mb-2">Phone Number:</label>
-        <input type="text" id="shop_phone" name="shop_phone" required class="w-full border rounded px-2 py-1">
+        <input type="text" id="shop_phone" name="shop_phone" class="w-full border rounded px-2 py-1">
     </div>
     <div class="form-field mb-4" id="field-shop-logo">
         <label for="shop_logo" class="block text-gray-700 mb-2">Logo</label>

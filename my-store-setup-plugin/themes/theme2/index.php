@@ -55,11 +55,11 @@ $categories = get_my_store_categories();
                     <?php if (count($categories) > 0) : ?>
                         <?php foreach ($categories as $category) : ?>
                             <div class="mt-10">
-                                <h2 class="text-xl font-semibold mb-4"><?php echo esc_html($category->category_name); ?></h2>
-                                <?php if ($store_info->layout == "Grid(1x2)") : ?>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                        <?php $products = get_my_store_products($category->id); ?>
-                                        <?php if (count($products)) : ?>
+                                <?php $products = get_my_store_products($category->id); ?>
+                                <?php if (count($products)) : ?>
+                                    <h2 class="text-xl font-semibold mb-4"><?php echo esc_html($category->category_name); ?></h2>
+                                    <?php if ($store_info->layout == "Grid(1x2)") : ?>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                                             <?php foreach ($products as $item) : ?>
                                                 <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
                                                     <div class="ml-3">
@@ -73,12 +73,9 @@ $categories = get_my_store_categories();
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php elseif ($store_info->layout == "List") : ?>
-                                    <div class="max-w-xs grid grid-cols-1 gap-y-4 gap-x-8">
-                                        <?php $products = get_my_store_products($category->id); ?>
-                                        <?php if (count($products)) : ?>
+                                        </div>
+                                    <?php elseif ($store_info->layout == "List") : ?>
+                                        <div class="max-w-xs grid grid-cols-1 gap-y-4 gap-x-8">
                                             <?php foreach ($products as $item) : ?>
                                                 <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
                                                     <div class="ml-3">
@@ -92,12 +89,9 @@ $categories = get_my_store_categories();
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php else : ?>
-                                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-y-4 gap-x-8">
-                                        <?php $products = get_my_store_products($category->id); ?>
-                                        <?php if (count($products)) : ?>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-y-4 gap-x-8">
                                             <?php foreach ($products as $item) : ?>
                                                 <div class="flex justify-between items-center gap-x-2 mb-2 rounded-lg border border-1 shadow hover:shadow-gray-300 hover:scale-105 duration-300">
                                                     <div class="ml-3">
@@ -111,12 +105,11 @@ $categories = get_my_store_categories();
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
-
                     <?php else : ?>
                         <p class="text-gray-600 mt-8"><span>No Menu available for this store.</span></p>
                     <?php endif; ?>

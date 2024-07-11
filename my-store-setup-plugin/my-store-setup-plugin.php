@@ -3,7 +3,7 @@
 /**
  * Plugin Name: My Store Setup Plugin
  * Description: A plugin to create a store with a setup wizard.
- * Version: 1.2
+ * Version: 1.5
  * Author: Gulam Kibria
  */
 
@@ -75,21 +75,55 @@ function my_store_setup_create_tables()
     ) $charset_collate;";
 
 
-
-
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
-    dbDelta($sql3);
-    dbDelta($sql2);
+
+    // if table already exists do nothing else create it
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+        dbDelta($sql);
+    }
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name3'") != $table_name3) {
+        dbDelta($sql3);
+    }
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name2'") != $table_name2) {
+        dbDelta($sql2);
+    }
+
+    $active_theme = wp_get_theme();
+    $theme_slug = $active_theme->get_stylesheet();
+    delete_previous_theme($theme_slug);
+
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+        $theme_from_db = $wpdb->get_var("SELECT theme FROM $table_name WHERE id = 1");
+        if ($theme_from_db == '' || $theme_from_db == null) {
+            $theme_from_db = 'default';
+        }
+        copy_theme_to_wp_directory($theme_from_db);
+    } else {
+        copy_theme_to_wp_directory('default');
+    }
+
+
+    // dbDelta($sql);
+    // dbDelta($sql3);
+    // dbDelta($sql2);
 }
 
 // Deactivation hook to delete tables
-register_deactivation_hook(__FILE__, 'my_store_setup_delete_tables');
+register_deactivation_hook(__FILE__, 'my_store_setup_deactivation');
+function my_store_setup_deactivation()
+{
+    $active_theme = wp_get_theme();
+    $theme_slug = $active_theme->get_stylesheet();
+    delete_previous_theme($theme_slug);
+
+    copy_theme_to_wp_directory('default');
+}
+
+register_uninstall_hook(__FILE__, 'my_store_setup_delete_tables');
+
 function my_store_setup_delete_tables()
 {
-    global $wpdb;
-
-    // Table for storing shop information
+    global $wpdb; // Table for storing shop information
     $table_name = $wpdb->prefix . 'my_store_shop_info';
     $sql1 = "DROP TABLE IF EXISTS $table_name;";
 
@@ -103,7 +137,6 @@ function my_store_setup_delete_tables()
     $table_name3 = $wpdb->prefix . 'my_store_categories';
     $sql3 = "DROP TABLE IF EXISTS $table_name3;";
 
-
     $wpdb->query($sql1);
     $wpdb->query($sql2);
     $wpdb->query($sql3);
@@ -113,9 +146,9 @@ function my_store_setup_delete_tables()
 function my_store_setup_enqueue_admin_assets()
 {
     // verstion update
-    wp_enqueue_style('tailwind', plugin_dir_url(__FILE__) . 'css/tailwind-output.css', array(), '1.0.1', 'all');
+    wp_enqueue_style('tailwind', plugin_dir_url(__FILE__) . 'css/tailwind-output.css', array(), '1.0.3', 'all');
 
-    wp_enqueue_style('my-store-admin-styles', plugin_dir_url(__FILE__) . 'css/admin-styles.css', array(), '8.9', 'all');
+    wp_enqueue_style('my-store-admin-styles', plugin_dir_url(__FILE__) . 'css/admin-styles.css', array(), '8.10', 'all');
 
     wp_enqueue_script('my-store-admin-scripts', plugin_dir_url(__FILE__) . 'js/admin-scripts.js', array('jquery'), null, true);
 }
@@ -144,6 +177,7 @@ function my_store_setup_add_admin_menu()
         add_submenu_page("home", "Shop Info", "Shop Info", 'manage_options', 'shop_info', 'shop_content_shop_info_page');
         add_submenu_page("home", "Category", "Category", 'manage_options', 'category', 'shop_content_category_page');
         add_submenu_page("home", "Product", "Product", 'manage_options', 'product', 'shop_content_product_page');
+        add_submenu_page("product", "Product List", "Product List", 'manage_options', 'product_list', 'shop_content_product_list_page');
     }
 }
 add_action('admin_menu', 'my_store_setup_add_admin_menu');
@@ -183,8 +217,6 @@ function my_store_setup_editor_page()
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'my_store_shop_info';
-
-
 
     // Fetch current shop info
     $shop_info = $wpdb->get_row("SELECT * FROM $table_name WHERE id = 1", ARRAY_A);
@@ -241,7 +273,12 @@ function my_store_setup_editor_page()
             delete_previous_theme($previous_theme);
         }
 
+        echo '<script>window.location.href = window.location.href;</script>';
+
         echo '<div class="updated"><p>Shop information updated successfully.</p></div>';
+        // Redirect to the same page to reflect changes
+
+
     }
 
     // Include the template
@@ -395,6 +432,9 @@ function my_store_setup_handle_product_submission()
             'product_category' => $product_category
         ));
         // Redirect to avoid form resubmission
+
+        echo '<div class="notice notice-success is-dismissible"><p>product added successfully!</p></div>';
+
         wp_redirect(admin_url('admin.php?page=product&success=1'));
     }
 }
