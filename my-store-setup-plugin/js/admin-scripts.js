@@ -31,3 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   showStep(currentStep);
 });
+
+// JavaScript code to detect active link and change background color
+const currentPage = window.location.href;
+const addLink = document.querySelector('a[href="?page=product&action=add"]');
+const listLink = document.querySelector('a[href="?page=product&action=list"]');
+
+if (currentPage.includes("action=add")) {
+  addLink.style.backgroundColor = "#999999";
+  addLink.style.borderColor = "#999999";
+} else if (currentPage.includes("action=list")) {
+  listLink.style.backgroundColor = "#999999";
+  listLink.style.borderColor = "#999999";
+}
